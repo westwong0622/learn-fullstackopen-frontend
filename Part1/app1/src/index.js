@@ -4,19 +4,21 @@ import ReactDOM from 'react-dom';
 const App = () => {
   const [value, setValue] = useState(10)
 
-  const hello = (who) => () => { console.log('hello', who) }
+  const setToValue = (newValue) => () => { setValue(newValue) }
 
   return (
     <div>
       <div>
       {value}
-      <button onClick={hello('world')}>button</button>
-      <button onClick={hello('react')}>button</button>
-      <button onClick={hello('function')}>button</button>
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="rese" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
     </div>
     </div>
   )
 }
+
+const Button = (props) => ( <button onClick={props.handleClick}>{props.text}</button> )
 
 ReactDOM.render(
   <React.StrictMode>
