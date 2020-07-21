@@ -2,52 +2,19 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  const [left, setLeft] = useState(0)
-  const [right, setRight] = useState(0)
-  const [allClicks, setAll] = useState([])
+  const [value, setValue] = useState(10)
 
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'))
-    setLeft(left + 1)
-  }
-
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'))
-    setRight(right + 1)
+  const hello = () => {
+    const handler = () => console.log('hello world')
+    return handler
   }
 
   return (
     <div>
-      <div>
-        {left}<Button onClick={handleLeftClick} text='left' />
-        <Button onClick={handleRightClick} text='right' />{right}
-        <History allClicks={allClicks} />
-      </div>
+      {value}<button onClick={hello()}>button</button>
     </div>
   )
 }
-
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing the buttons
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      button press history: {props.allClicks.join(' ')}
-    </div>
-  )
-}
-
-const Button = ({ onClick, text }) => (
-  <button onClick={onClick}>
-    {text}
-  </button>
-)
 
 ReactDOM.render(
   <React.StrictMode>
