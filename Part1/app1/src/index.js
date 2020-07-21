@@ -4,14 +4,19 @@ import ReactDOM from 'react-dom';
 const App = () => {
   const [ counter, setCounter ] = useState(0)
 
-  const handleClick = () => {
-    console.log('clicked')
+  const increaseByOne = () => {
+    setCounter(counter + 1)
+  }
+
+  const setToZero = () => {
+    setCounter(0)
   }
 
   return (
     <div>
       <div>{counter}</div>
-      <button onClick={handleClick}>Plus</button>
+      <button onClick={increaseByOne}>Plus</button>
+      <button onClick={setToZero}>Reset</button>
     </div>
   )
 }
