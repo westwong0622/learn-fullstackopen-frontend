@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  const [value, setValue] = useState(10)
-
-  const setToValue = (newValue) => () => { setValue(newValue) }
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
+      <h2>Give feedback</h2>
       <div>
-      {value}
-      <Button handleClick={() => setToValue(1000)} text="thousand" />
-      <Button handleClick={() => setToValue(0)} text="rese" />
-      <Button handleClick={() => setToValue(value + 1)} text="increment" />
-    </div>
+        <button onClick={() => setGood(good+1)}>Good</button>
+        <button onClick={() => setNeutral(neutral+1)}>Neutral</button>
+        <button onClick={() => setBad(bad+1)}>Bad</button>
+      </div>
+      <h3>Statistics</h3>
+      <div>good {good}</div>
+      <div>neutral {neutral}</div>
+      <div>bad {bad}</div>
     </div>
   )
 }
-
-const Button = (props) => ( <button onClick={props.handleClick}>{props.text}</button> )
 
 ReactDOM.render(
   <React.StrictMode>
