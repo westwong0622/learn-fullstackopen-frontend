@@ -19,8 +19,8 @@ const App = () => {
   return (
     <div>
       <div>
-        {left}<button onClick={handleLeftClick}>left</button>
-        <button onClick={handleRightClick}>right</button>{right}
+        {left}<Button onClick={handleLeftClick} text='left' />
+        <Button onClick={handleRightClick} text='right' />{right}
         <History allClicks={allClicks} />
       </div>
     </div>
@@ -42,6 +42,12 @@ const History = (props) => {
     </div>
   )
 }
+
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
 
 ReactDOM.render(
   <React.StrictMode>
