@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import Note from './components/Note';
 
 const notes = [
   {
@@ -32,12 +33,6 @@ const App = ({notes}) => {
         )}
       </ul>
     </div>
-  )
-}
-
-const Note = ({ note }) => {
-  return (
-    <li>{note.content}</li>
   )
 }
 
