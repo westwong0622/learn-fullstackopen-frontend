@@ -23,6 +23,12 @@ const App = () => {
     ]
   }
 
+  const total = course.parts.reduce((s, p) => {
+    console.log('what is happening', s, p)
+    var sum = s.exercises + p.exercises
+    return { name: 'sum', exercises: sum, id: 0}
+  })
+
   return (
     <div>
       <h1>{course.name}</h1>
@@ -31,7 +37,7 @@ const App = () => {
         <li>{course.parts[1].name} {course.parts[1].exercises}</li>
         <li>{course.parts[2].name} {course.parts[2].exercises}</li>
       </ul>
-      total: {course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises}
+      {total.exercises}
     </div>
   )
 }
