@@ -31,6 +31,7 @@ const App = () => {
         <li>{course.parts[1].name} {course.parts[1].exercises}</li>
         <li>{course.parts[2].name} {course.parts[2].exercises}</li>
       </ul>
+      total: {course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises}
     </div>
   )
 }
