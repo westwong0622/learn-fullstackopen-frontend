@@ -13,7 +13,6 @@ const notes = [
     content: "world",
     important: false
   }
-
 ]
 
 ReactDOM.render(
