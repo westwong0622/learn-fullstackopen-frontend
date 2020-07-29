@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 
 const Person = (props) => {
-  return (
-    <li>{props.person.name}: {props.person.number}</li>
-  )
+  if(props.person.show) {
+    return (
+      <li>{props.person.name}: {props.person.number}</li>
+    )
+  } else {
+    return null
+  }
 }
 
 export default Person
