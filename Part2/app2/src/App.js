@@ -6,6 +6,11 @@ const App = (props) => {
   const [newNote, setNewNote] = useState(
     'a new note...'
   )
+  const [showAll, setShowAll] = useState(false)
+
+  const notesToShow = showAll
+    ? notes
+    : notes.filter(note => note.important === true)
 
   const addNote = (event) => {
     event.preventDefault()
@@ -32,7 +37,7 @@ const App = (props) => {
     <div>
       <h1>Notes</h1>
       <ul>
-        {notes.map(note => 
+        {notesToShow.map(note => 
           <Note key={note.id} note={note} />
         )}
       </ul>
