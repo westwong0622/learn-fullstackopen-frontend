@@ -5,11 +5,13 @@ import App from './App'
 const notes = [
   {
     id: 1,
-    name: "hello"
+    content: "hello",
+    important: false
   },
   {
     id: 2,
-    name: "world"
+    content: "world",
+    important: false
   }
 
 ]
