@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import Person from './components/Person';
+
+const promise = axios.get('http://localhost:3001/notes')
+console.log(promise)
 
 const App = (props) => {
   const [ persons, setPersons ] = useState([
@@ -68,7 +72,7 @@ const App = (props) => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person => 
-          <Person person={person} />
+          <Person key={person.name} person={person} />
         )}
       </ul>
     </div>
