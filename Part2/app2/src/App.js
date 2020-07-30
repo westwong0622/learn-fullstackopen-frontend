@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import Person from './components/Person';
 
-const promise = axios.get('http://localhost:3001/notes').then(response => {
-  const notes = response.data
-  console.log(notes);
-})
+const promise = axios
+  .get('http://localhost:3001/notes')
+  .then(response => {
+    const notes = response.data
+    console.log(notes);
+  })
 
 const App = (props) => {
   const [ persons, setPersons ] = useState([
