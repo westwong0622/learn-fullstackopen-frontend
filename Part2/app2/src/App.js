@@ -4,6 +4,9 @@ import Person from './components/Person';
 
 const promise = axios.get('http://localhost:3001/notes')
 console.log(promise)
+promise.then(response => {
+  console.log(response)
+})
 
 const App = (props) => {
   const [ persons, setPersons ] = useState([
