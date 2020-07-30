@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import Person from './components/Person';
 
-const promise = axios.get('http://localhost:3001/notes')
-console.log(promise)
-promise.then(response => {
+const promise = axios.get('http://localhost:3001/notes').then(response => {
   console.log(response)
 })
 
@@ -39,6 +37,7 @@ const App = (props) => {
       }
       personsObj.push(person)
       console.log(person);
+      return 0
     })
     setPersons(personsObj)
   }
@@ -65,7 +64,7 @@ const App = (props) => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>filter shown: <input onChange={handleFilterChange}/></div>
+      <div>filter shown: <input onChange={handleFilterChange} value={filter} /></div>
       <h2>Add a new</h2>
       <form>
         <div>name: <input value={newName} onChange={handleNameChange} /></div>
