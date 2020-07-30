@@ -3,7 +3,8 @@ import axios from 'axios';
 import Person from './components/Person';
 
 const promise = axios.get('http://localhost:3001/notes').then(response => {
-  console.log(response)
+  const notes = response.data
+  console.log(notes);
 })
 
 const App = (props) => {
