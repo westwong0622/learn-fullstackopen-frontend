@@ -21,6 +21,10 @@ const App = () => {
 
   useEffect(hook, [])
 
+  const showAllChange = (event) => {
+    setShowAll(!showAll)
+  }
+
   const newNoteChange = (event) => {
     setNewNote(event.target.value)
     console.log(event.target.value);
@@ -43,15 +47,8 @@ const App = () => {
       })
   }
 
-  const showAllChange = (event) => {
-    setShowAll(!showAll)
-  }
-
   const toggleImportanceOf = (id) => {
-    console.log('importance of ' + id + ' needs to be toggled')
-
-    const url = `http://localhost:3001/notes/${id}`
-    const note = notes.find(n => n.id === id)
+    const note = notes.find(note => note.id === id)
     const changedNote = { ...note, important: !note.important }
     
     noteService
@@ -67,17 +64,32 @@ const App = () => {
       })
   }
 
+  const removeNoteOf = (id) => {
+    const note = notes.find(note => note.id === id)
+
+    noteService
+      .remove(id)
+      .then(returnedNote => {
+        setNotes(notes.filter(note => note.id !== id))
+      })
+      .catch(error => {
+        alert(
+          `the note '${note.content}' was already deleted from server`
+        )
+        setNotes(notes.filter(note => note.id !== id))
+      })
+  }
+
   return (
     <div>
       <h2>Notes</h2>
       <div>Show all notes: {showAll.toString()} <button onClick={showAllChange}>Change</button> </div>
       <div>
-        <input value={newNote} onChange={newNoteChange}/>
-        <button onClick={addNewNote}>Add</button>
+        <input value={newNote} onChange={newNoteChange}/> <button onClick={addNewNote}>Add</button>
       </div>
       <ul>
         {notes.map(note => 
-          <Note key={note.id} note={note} showAll={showAll} toggleImportance={() => toggleImportanceOf(note.id)} />
+          <Note key={note.id} note={note} showAll={showAll} toggleImportance={() => toggleImportanceOf(note.id)} removeNote={() => removeNoteOf(note.id)} />
         )}
       </ul>
     </div>
