@@ -35,6 +35,8 @@ const App = () => {
       .post('http://localhost:3001/notes', noteObject)
       .then(response => {
         console.log(response);
+        setNotes(notes.concat(response.data))
+        setNewNote('')
       })
   }
 
