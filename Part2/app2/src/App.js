@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Note from "./components/Note";
+import Notification from "./components/Notification";
 
 import noteService from "./services/notes";
 import loginService from "./services/login";
@@ -102,6 +103,7 @@ const App = () => {
         password,
       });
 
+      noteService.setToken(userData.token);
       setUser(userData);
       setUsername("");
       setPassword("");
@@ -166,8 +168,14 @@ const App = () => {
     <div>
       <h2>Notes</h2>
       <Notification message={errorMessage} />
-      {user === null && loginForm()}
-      {user !== null && noteForm()}
+      {user === null ? (
+        loginForm()
+      ) : (
+        <div>
+          <p>{user.name} logged-in</p>
+          {noteForm()}
+        </div>
+      )}
       <Footer />
       Test Depoly
     </div>
