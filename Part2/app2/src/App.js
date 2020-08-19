@@ -25,6 +25,8 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const hook = () => {
     console.log("effect");
@@ -61,37 +63,62 @@ const App = () => {
   };
 
   const toggleImportanceOf = (id) => {
-    const note = notes.find((note) => note.id === id);
+    const note = notes.find((n) => note.id === id);
     const changedNote = { ...note, important: !note.important };
 
     noteService
       .update(id, changedNote)
       .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+        setNotes(notes.map((n) => (note.id !== id ? note : returnedNote)));
       })
       .catch((error) => {
         alert(`the note '${note.content}' was already deleted from server`);
-        setNotes(notes.filter((note) => note.id !== id));
+        setNotes(notes.filter((n) => note.id !== id));
       });
   };
 
   const removeNoteOf = (id) => {
-    const note = notes.find((note) => note.id === id);
+    const note = notes.find((n) => note.id === id);
 
     noteService
       .remove(id)
       .then((returnedNote) => {
-        setNotes(notes.filter((note) => note.id !== id));
+        setNotes(notes.filter((n) => note.id !== id));
       })
       .catch((error) => {
         alert(`the note '${note.content}' was already deleted from server`);
-        setNotes(notes.filter((note) => note.id !== id));
+        setNotes(notes.filter((n) => note.id !== id));
       });
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    console.log("logging in with", username, password);
   };
 
   return (
     <div>
       <h2>Notes</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+      </form>
       <div>
         Show all notes: {showAll.toString()}{" "}
         <button onClick={showAllChange}>Change</button>{" "}
