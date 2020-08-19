@@ -3,6 +3,7 @@ import axios from "axios";
 import Note from "./components/Note";
 
 import noteService from "./services/notes";
+import loginService from "./services/login";
 
 const Footer = () => {
   const footerStyle = {
@@ -27,6 +28,8 @@ const App = () => {
   const [newNote, setNewNote] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [user, setUser] = useState(null);
 
   const hook = () => {
     console.log("effect");
@@ -91,8 +94,23 @@ const App = () => {
       });
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
+    try {
+      const userData = await loginService.login({
+        username,
+        password,
+      });
+
+      setUser(userData);
+      setUsername("");
+      setPassword("");
+    } catch (exception) {
+      setErrorMessage("Wrong credentials");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
     console.log("logging in with", username, password);
   };
 
@@ -118,6 +136,7 @@ const App = () => {
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
+        <button type="submit">login</button>
       </form>
       <div>
         Show all notes: {showAll.toString()}{" "}
