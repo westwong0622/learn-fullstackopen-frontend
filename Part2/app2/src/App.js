@@ -114,30 +114,32 @@ const App = () => {
     console.log("logging in with", username, password);
   };
 
-  return (
+  const loginForm = () => (
+    <form onSubmit={handleLogin}>
+      <div>
+        username
+        <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+        <input
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button type="submit">login</button>
+    </form>
+  );
+
+  const noteForm = () => (
     <div>
-      <h2>Notes</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
       <div>
         Show all notes: {showAll.toString()}{" "}
         <button onClick={showAllChange}>Change</button>{" "}
@@ -157,6 +159,15 @@ const App = () => {
           />
         ))}
       </ul>
+    </div>
+  );
+
+  return (
+    <div>
+      <h2>Notes</h2>
+      <Notification message={errorMessage} />
+      {user === null && loginForm()}
+      {user !== null && noteForm()}
       <Footer />
       Test Depoly
     </div>
