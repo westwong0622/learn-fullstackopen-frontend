@@ -131,6 +131,11 @@ const App = () => {
     console.log("logging in with", username, password);
   };
 
+  const clickLogout = () => {
+    window.localStorage.removeItem("loggedNoteAppUser");
+    setUser(null);
+  };
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -187,7 +192,9 @@ const App = () => {
         loginForm()
       ) : (
         <div>
-          <p>{user.name} logged-in</p>
+          <div>
+            {user.name} logged-in <button onClick={clickLogout}>Logout</button>
+          </div>
           {noteForm()}
         </div>
       )}
