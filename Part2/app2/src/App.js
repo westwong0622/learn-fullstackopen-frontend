@@ -6,22 +6,22 @@ import Notification from "./components/Notification";
 import noteService from "./services/notes";
 import loginService from "./services/login";
 
-const Footer = () => {
-  const footerStyle = {
-    color: "green",
-    fontStyle: "italic",
-    fontSize: 16,
-  };
+// const Footer = () => {
+//   const footerStyle = {
+//     color: "green",
+//     fontStyle: "italic",
+//     fontSize: 16,
+//   };
 
-  return (
-    <div style={footerStyle}>
-      <br />
-      <em>
-        Note app, Department of Computer Science, University of Helsinki 2020
-      </em>
-    </div>
-  );
-};
+//   return (
+//     <div style={footerStyle}>
+//       <br />
+//       <em>
+//         Note app, Department of Computer Science, University of Helsinki 2020
+//       </em>
+//     </div>
+//   );
+// };
 
 const App = () => {
   const [showAll, setShowAll] = useState(true);
@@ -32,15 +32,25 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [user, setUser] = useState(null);
 
-  const hook = () => {
+  const getNotesHook = () => {
     console.log("effect");
     noteService.getAll().then((initialNotes) => {
       console.log("promise fulfilled");
       setNotes(initialNotes);
     });
   };
+  useEffect(getNotesHook, []);
 
-  useEffect(hook, []);
+  const getTokenHook = () => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteAppUser");
+    if (loggedUserJSON) {
+      const userData = JSON.parse(loggedUserJSON);
+      setUser(userData);
+      noteService.setToken(userData.token);
+    }
+    // window.localStorage.clear();
+  };
+  useEffect(getTokenHook, []);
 
   const showAllChange = (event) => {
     setShowAll(!showAll);
@@ -102,6 +112,11 @@ const App = () => {
         username,
         password,
       });
+
+      window.localStorage.setItem(
+        "loggedNoteAppUser",
+        JSON.stringify(userData)
+      );
 
       noteService.setToken(userData.token);
       setUser(userData);
@@ -176,8 +191,8 @@ const App = () => {
           {noteForm()}
         </div>
       )}
-      <Footer />
-      Test Depoly
+      {/* <Footer />
+      Test Depoly */}
     </div>
   );
 };
