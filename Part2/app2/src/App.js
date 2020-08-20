@@ -10,12 +10,13 @@ import noteService from "./services/notes";
 import loginService from "./services/login";
 
 const App = () => {
-  const [showAll, setShowAll] = useState(true);
-  const [notes, setNotes] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [user, setUser] = useState(null);
+
+  const [showAll, setShowAll] = useState(true);
+  const [notes, setNotes] = useState([]);
 
   const getNotesHook = () => {
     console.log("effect");
@@ -66,16 +67,17 @@ const App = () => {
   };
 
   const removeNoteOf = (id) => {
-    const note = notes.find((n) => note.id === id);
+    const note = notes.find((n) => n.id === id);
+    console.log(note);
 
     noteService
       .remove(id)
       .then((returnedNote) => {
-        setNotes(notes.filter((n) => note.id !== id));
+        setNotes(notes.filter((n) => n.id !== id));
       })
       .catch((error) => {
         alert(`the note '${note.content}' was already deleted from server`);
-        setNotes(notes.filter((n) => note.id !== id));
+        setNotes(notes.filter((n) => n.id !== id));
       });
   };
 
