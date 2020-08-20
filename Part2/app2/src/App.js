@@ -63,17 +63,20 @@ const App = () => {
 
   const addNewNote = (event) => {
     event.preventDefault();
-    const noteObject = {
-      content: newNote,
-      date: new Date(),
-      important: Math.random() > 0.5,
-    };
 
-    noteService.create(noteObject).then((returnedNote) => {
-      console.log(returnedNote);
-      setNotes(notes.concat(returnedNote));
-      setNewNote("");
-    });
+    if (newNote.trim() !== "") {
+      const noteObject = {
+        content: newNote,
+        date: new Date(),
+        important: Math.random() > 0.5,
+      };
+
+      noteService.create(noteObject).then((returnedNote) => {
+        console.log(returnedNote);
+        setNotes(notes.concat(returnedNote));
+        setNewNote("");
+      });
+    }
   };
 
   const toggleImportanceOf = (id) => {
