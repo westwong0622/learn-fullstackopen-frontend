@@ -1,27 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Note from "./components/Note";
 import Notification from "./components/Notification";
+import Togglable from "./components/Togglable";
+import LoginForm from "./components/LoginForm";
+import NoteForm from "./components/NoteForm";
+import Note from "./components/Note";
+import Footer from "./components/Footer";
 
 import noteService from "./services/notes";
 import loginService from "./services/login";
-
-// const Footer = () => {
-//   const footerStyle = {
-//     color: "green",
-//     fontStyle: "italic",
-//     fontSize: 16,
-//   };
-
-//   return (
-//     <div style={footerStyle}>
-//       <br />
-//       <em>
-//         Note app, Department of Computer Science, University of Helsinki 2020
-//       </em>
-//     </div>
-//   );
-// };
 
 const App = () => {
   const [showAll, setShowAll] = useState(true);
@@ -109,6 +95,7 @@ const App = () => {
   };
 
   const handleLogin = async (event) => {
+    console.log("logging in with", username, password);
     event.preventDefault();
     try {
       const userData = await loginService.login({
@@ -131,7 +118,7 @@ const App = () => {
         setErrorMessage(null);
       }, 5000);
     }
-    console.log("logging in with", username, password);
+    // console.log("logging in with", username, password);
   };
 
   const clickLogout = () => {
@@ -139,57 +126,31 @@ const App = () => {
     setUser(null);
   };
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
+  const noteForm = () => (
+    <Togglable buttonLabel="Add note">
+      <NoteForm
+        onSubmit={addNewNote}
+        value={newNote}
+        handleChange={newNoteChange}
+      />
+    </Togglable>
   );
 
-  const noteForm = () => (
-    <div>
-      <div>
-        Show all notes: {showAll.toString()}{" "}
-        <button onClick={showAllChange}>Change</button>{" "}
-      </div>
-      <div>
-        <input value={newNote} onChange={newNoteChange} />{" "}
-        <button onClick={addNewNote}>Add</button>
-      </div>
-      <ul>
-        {notes.map((note) => (
-          <Note
-            key={note.id}
-            note={note}
-            showAll={showAll}
-            toggleImportance={() => toggleImportanceOf(note.id)}
-            removeNote={() => removeNoteOf(note.id)}
-          />
-        ))}
-      </ul>
-    </div>
+  const loginForm = () => (
+    <Togglable buttonLabel="Show login">
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target }) => setUsername(target.value)}
+        handlePasswordChange={({ target }) => setPassword(target.value)}
+        handleSubmit={handleLogin}
+      />
+    </Togglable>
   );
 
   return (
     <div>
-      <h2>Notes</h2>
+      <h1>Notes</h1>
       <Notification message={errorMessage} />
       {user === null ? (
         loginForm()
@@ -201,8 +162,24 @@ const App = () => {
           {noteForm()}
         </div>
       )}
-      {/* <Footer />
-      Test Depoly */}
+      <div>
+        <div>
+          Show all notes: {showAll.toString()}{" "}
+          <button onClick={showAllChange}>Change</button>{" "}
+        </div>
+        <ul>
+          {notes.map((note) => (
+            <Note
+              key={note.id}
+              note={note}
+              showAll={showAll}
+              toggleImportance={() => toggleImportanceOf(note.id)}
+              removeNote={() => removeNoteOf(note.id)}
+            />
+          ))}
+        </ul>
+      </div>
+      <Footer />
     </div>
   );
 };
