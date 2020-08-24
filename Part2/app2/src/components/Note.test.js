@@ -11,6 +11,8 @@ test("renders content", () => {
 
   const component = render(<Note note={note} />);
 
+  component.debug();
+
   // method 1
   expect(component.container).toHaveTextContent(
     "Component testing is done with react-testing-library"
