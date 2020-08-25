@@ -14,12 +14,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p3001 --watch db.json"
+    "server": "json-server -p3001 --watch db.json",
+    "cypress:open": "cypress open"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.9",
+    "cypress": "^5.0.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
