@@ -55,7 +55,7 @@ const App = () => {
   };
 
   const toggleImportanceOf = (id) => {
-    const note = notes.find((n) => note.id === id);
+    const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
     noteService
@@ -151,7 +151,7 @@ const App = () => {
       <div>
         <div>
           Show all notes: {showAll.toString()}{" "}
-          <button onClick={showAllChange}>Change</button>{" "}
+          <button onClick={showAllChange}>Show Change</button>{" "}
         </div>
         <ul>
           {notes.map((note) => (
