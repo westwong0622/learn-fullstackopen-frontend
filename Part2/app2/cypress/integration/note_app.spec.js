@@ -63,13 +63,13 @@ describe("Note app", function () {
       });
 
       it("it can be made important", function () {
-        cy.contains("second note").parent().find("button").first().click();
-
         cy.contains("second note")
           .parent()
           .find("button")
           .first()
-          .should("contain", "Change");
+          .as("theButton");
+        cy.get("@theButton").click();
+        cy.get("@theButton").should("contain", "Change");
       });
     });
   });
