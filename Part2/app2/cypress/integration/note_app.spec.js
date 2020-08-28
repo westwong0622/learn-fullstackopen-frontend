@@ -71,6 +71,12 @@ describe("Note app", function () {
         cy.get("@theButton").click();
         cy.get("@theButton").should("contain", "Change");
       });
+
+      it("then example", function () {
+        cy.get("button").then((buttons) => {
+          console.log("number of buttons", buttons.length);
+        });
+      });
     });
   });
 });
