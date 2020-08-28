@@ -57,16 +57,15 @@ describe("Note app", function () {
 
     describe("and a note exists", function () {
       beforeEach(function () {
-        cy.createNote({
-          content: "another note cypress",
-          important: false,
-        });
+        cy.createNote({ content: "first note", important: false });
+        cy.createNote({ content: "second note", important: false });
+        cy.createNote({ content: "third note", important: false });
       });
 
       it("it can be made important", function () {
-        cy.contains("another note cypress").contains("Change").click();
+        cy.contains("second note").contains("Change").click();
 
-        // cy.contains("another note cypress").contains("Change");
+        cy.contains("second note").contains("Change");
       });
     });
   });
