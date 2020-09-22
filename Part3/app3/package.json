@@ -16,6 +16,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "deep-freeze": "0.0.1",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
