@@ -17,10 +17,9 @@ console.log(store.getState());
 
 const renderApp = () => {
   ReactDOM.render(
-    // <Provider store={store}>
-    //   <App />
-    // </Provider>,
-    <div />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById("root")
   );
 };
