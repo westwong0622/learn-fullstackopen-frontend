@@ -14,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server -p3001 --watch db.json"
   },
   "devDependencies": {
     "deep-freeze": "0.0.1",
@@ -27,6 +28,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.0",
+    "json-server": "^0.16.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   },
