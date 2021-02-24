@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Users from "./Users";
 import Notes from "./Notes";
+import Note from "./Note";
 import Home from "./Home";
 import VisibilityFilter from "./VisibilityFilter";
 import { initializeNotes } from "./reducers/noteReducer";
@@ -41,6 +42,9 @@ const App = () => {
         </Link>
       </div>
       <Switch>
+        <Route path="/notes/:id">
+          <Note notes={notes} />
+        </Route>
         <Route path="/notes">
           <Notes notes={notes} />
         </Route>
