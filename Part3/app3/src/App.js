@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Users from "./Users";
 import Notes from "./Notes";
 import Note from "./Note";
+import Login from "./Login";
 import Home from "./Home";
 import VisibilityFilter from "./VisibilityFilter";
 import { initializeNotes } from "./reducers/noteReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +31,12 @@ const App = () => {
       : state.notes.filter((note) => !note.important);
   });
 
+  const [user, setUser] = useState(null);
+
+  const login = (user) => {
+    setUser(user);
+  };
+
   const padding = {
     padding: 5,
   };
@@ -40,6 +53,13 @@ const App = () => {
         <Link style={padding} to="/users">
           users
         </Link>
+        {user ? (
+          <em>{user} logged in</em>
+        ) : (
+          <Link style={padding} to="/login">
+            login
+          </Link>
+        )}
       </div>
       <Switch>
         <Route path="/notes/:id">
@@ -49,7 +69,10 @@ const App = () => {
           <Notes notes={notes} />
         </Route>
         <Route path="/users">
-          <Users />
+          {user ? <Users /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/login">
+          <Login onLogin={login} />
         </Route>
         <Route path="/">
           <Home />
