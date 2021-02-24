@@ -1,28 +1,95 @@
-import React, { useEffect, useState } from "react";
-import Users from "./Users";
-import Notes from "./Notes";
-import Note from "./Note";
-import Login from "./Login";
-import Home from "./Home";
-import VisibilityFilter from "./VisibilityFilter";
-import { initializeNotes } from "./reducers/noteReducer";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+
 import {
   BrowserRouter as Router,
-  useRouteMatch,
   Switch,
   Route,
   Link,
   Redirect,
+  useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 
+const Home = () => (
+  <div>
+    <h2>TKTL notes app</h2>
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book. It has survived not only five centuries, but
+      also the leap into electronic typesetting, remaining essentially
+      unchanged. It was popularised in the 1960s with the release of Letraset
+      sheets containing Lorem Ipsum passages, and more recently with desktop
+      publishing software like Aldus PageMaker including versions of Lorem
+      Ipsum.
+    </p>
+  </div>
+);
+
+const Note = ({ note }) => {
+  return (
+    <div>
+      <h2>{note.content}</h2>
+      <div>{note.user}</div>
+      <div>
+        <strong>{note.important ? "tärkeä" : ""}</strong>
+      </div>
+    </div>
+  );
+};
+
+const Notes = ({ notes }) => (
+  <div>
+    <h2>Notes</h2>
+    <ul>
+      {notes.map((note) => (
+        <li key={note.id}>
+          <Link to={`/notes/${note.id}`}>{note.content}</Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Users = () => (
+  <div>
+    <h2>TKTL notes app</h2>
+    <ul>
+      <li>Matti Luukkainen</li>
+      <li>Juha Tauriainen</li>
+      <li>Arto Hellas</li>
+    </ul>
+  </div>
+);
+
+const Login = (props) => {
+  const history = useHistory();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    props.onLogin("mluukkai");
+    history.push("/");
+  };
+
+  return (
+    <div>
+      <h2>login</h2>
+      <form onSubmit={onSubmit}>
+        <div>
+          username: <input />
+        </div>
+        <div>
+          password: <input type="password" />
+        </div>
+        <button type="submit">login</button>
+      </form>
+    </div>
+  );
+};
+
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(initializeNotes());
-  }, [dispatch]);
-
   const [notes, setNotes] = useState([
     {
       id: 1,
@@ -60,7 +127,7 @@ const App = () => {
     : null;
 
   return (
-    <Router>
+    <div>
       <div>
         <Link style={padding} to="/">
           home
@@ -79,6 +146,7 @@ const App = () => {
           </Link>
         )}
       </div>
+
       <Switch>
         <Route path="/notes/:id">
           <Note note={note} />
@@ -97,9 +165,10 @@ const App = () => {
         </Route>
       </Switch>
       <div>
-        <i>Note app, Department of Computer Science 2020</i>
+        <br />
+        <em>Note app, Department of Computer Science 2020</em>
       </div>
-    </Router>
+    </div>
   );
 };
 
