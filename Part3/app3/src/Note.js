@@ -4,15 +4,12 @@ import { toggleImportanceOf } from "./reducers/noteReducer";
 import { Link, useParams } from "react-router-dom";
 
 const Note = (props) => {
-  const notes = props.notes;
-
-  const id = useParams().id;
-  const note = notes.find((n) => n.id === Number(id));
+  const note = props.note;
 
   return (
     <div>
-      <h2>{note.content}</h2>
-      <div>{note.user}</div>
+      <h2>{note.id}</h2>
+      <div>{note.content}</div>
       <div>
         <strong>{note.important ? "important" : "not important"}</strong>
       </div>

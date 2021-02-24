@@ -9,6 +9,7 @@ import { initializeNotes } from "./reducers/noteReducer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
+  useRouteMatch,
   Switch,
   Route,
   Link,
@@ -22,14 +23,26 @@ const App = () => {
     dispatch(initializeNotes());
   }, [dispatch]);
 
-  const notes = useSelector((state) => {
-    if (state.filter === "ALL") {
-      return state.notes;
-    }
-    return state.filter === "IMPORTANT"
-      ? state.notes.filter((note) => note.important)
-      : state.notes.filter((note) => !note.important);
-  });
+  const [notes, setNotes] = useState([
+    {
+      id: 1,
+      content: "HTML is easy",
+      important: true,
+      user: "Matti Luukkainen",
+    },
+    {
+      id: 2,
+      content: "Browser can execute only Javascript",
+      important: false,
+      user: "Matti Luukkainen",
+    },
+    {
+      id: 3,
+      content: "Most important methods of HTTP-protocol are GET and POST",
+      important: true,
+      user: "Arto Hellas",
+    },
+  ]);
 
   const [user, setUser] = useState(null);
 
@@ -40,6 +53,11 @@ const App = () => {
   const padding = {
     padding: 5,
   };
+
+  const match = useRouteMatch("/notes/:id");
+  const note = match
+    ? notes.find((note) => note.id === Number(match.params.id))
+    : null;
 
   return (
     <Router>
@@ -63,7 +81,7 @@ const App = () => {
       </div>
       <Switch>
         <Route path="/notes/:id">
-          <Note notes={notes} />
+          <Note note={note} />
         </Route>
         <Route path="/notes">
           <Notes notes={notes} />
