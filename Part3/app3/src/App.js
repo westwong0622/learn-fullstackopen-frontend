@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import Count from "./Count";
 
 import {
   BrowserRouter as Router,
@@ -168,6 +169,7 @@ const App = () => {
         <br />
         <em>Note app, Department of Computer Science 2020</em>
       </div>
+      <Count></Count>
     </div>
   );
 };
