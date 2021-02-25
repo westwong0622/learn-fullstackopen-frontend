@@ -1,37 +1,33 @@
 import React, { useState } from "react";
 const Count = (props) => {
-  const counter = useCounter();
+  const name = useField("text");
+  const password = useField("password");
 
   return (
     <div>
-      <div>{counter.value}</div>
-      <button onClick={counter.increase}>plus</button>
-      <button onClick={counter.decrease}>minus</button>
-      <button onClick={counter.zero}>zero</button>
+      <form>
+        <input type={name.type} value={name.value} onChange={name.onChange} />
+        <input
+          type={password.type}
+          value={password.value}
+          onChange={password.onChange}
+        />
+      </form>
     </div>
   );
 };
 
-const useCounter = () => {
-  const [value, setValue] = useState(0);
+const useField = (type) => {
+  const [value, setValue] = useState("");
 
-  const increase = () => {
-    setValue(value + 1);
-  };
-
-  const decrease = () => {
-    setValue(value - 1);
-  };
-
-  const zero = () => {
-    setValue(0);
+  const onChange = (event) => {
+    setValue(event.target.value);
   };
 
   return {
+    type,
     value,
-    increase,
-    decrease,
-    zero,
+    onChange,
   };
 };
 
