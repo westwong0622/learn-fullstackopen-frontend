@@ -6,12 +6,8 @@ const Count = (props) => {
   return (
     <div>
       <form>
-        <input type={name.type} value={name.value} onChange={name.onChange} />
-        <input
-          type={password.type}
-          value={password.value}
-          onChange={password.onChange}
-        />
+        <input {...name} />
+        <input {...password} />
       </form>
     </div>
   );
