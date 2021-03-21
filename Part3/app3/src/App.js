@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Count from "./Count";
 import { Table, Form, Button, Alert, Navbar, Nav } from "react-bootstrap";
+import styled from "styled-components";
 
 import {
   BrowserRouter as Router,
@@ -79,6 +80,19 @@ const Login = (props) => {
     props.onLogin("mluukkai");
     history.push("/");
   };
+
+  const Button = styled.button`
+    background: Bisque;
+    font-size: 1em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid Green;
+    border-radius: 3px;
+  `;
+
+  const Input = styled.input`
+    margin: 0.25em;
+  `;
 
   return (
     <div>
