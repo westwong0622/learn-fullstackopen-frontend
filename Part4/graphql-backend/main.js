@@ -24,6 +24,15 @@ let persons = [
 ];
 
 const typeDefs = gql`
+  type Mutation {
+    addPerson(
+      name: String!
+      phone: String
+      street: String!
+      city: String!
+    ): Person
+  }
+
   type Address {
     street: String!
     city: String!
