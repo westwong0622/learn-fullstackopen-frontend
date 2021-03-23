@@ -4,7 +4,8 @@
   "description": "practising webpack",
   "scripts": {
     "start": "webpack serve --mode=development",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "local-server": "json-server -p3001 --watch db.json"
   },
   "license": "MIT",
   "devDependencies": {
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
