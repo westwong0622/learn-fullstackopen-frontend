@@ -37,3 +37,11 @@ const typeDefs = gql`
   }
 `;
 
+const resolvers = {
+  Query: {
+    personCount: () => persons.length,
+    allPersons: () => persons,
+    findPerson: (root, args) => persons.find((p) => p.name === args.name),
+  },
+};
+
