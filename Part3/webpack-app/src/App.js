@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ClassTest from "./ClassTest";
 
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -13,6 +14,7 @@ const App = () => {
     <div className="container">
       hello webpack {counter} clicks
       <button onClick={handleClick}>press</button>
+      <ClassTest />
     </div>
   );
 };
