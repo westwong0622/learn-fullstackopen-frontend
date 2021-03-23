@@ -1,3 +1,5 @@
+const { ApolloServer, gql } = require("apollo-server");
+
 let persons = [
   {
     name: "Arto Hellas",
@@ -45,3 +47,11 @@ const resolvers = {
   },
 };
 
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});
