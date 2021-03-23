@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
+const { v1: uuid } = require("uuid");
 
 let persons = [
   {
@@ -64,6 +65,13 @@ const resolvers = {
         street: root.street,
         city: root.city,
       };
+    },
+  },
+  Mutation: {
+    addPerson: (root, args) => {
+      const person = { ...args, id: uuid() };
+      persons = persons.concat(person);
+      return person;
     },
   },
 };
