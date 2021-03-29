@@ -1,4 +1,5 @@
 import React from "react";
+import Persons from "./Persons.js";
 import { gql, useQuery } from "@apollo/client";
 
 const ALL_PERSONS = gql`
@@ -18,7 +19,7 @@ const App = () => {
     return <div>loading...</div>;
   }
 
-  return <div>{result.data.allPersons.map((p) => p.name).join(", ")}</div>;
+  return <Persons persons={result.data.allPersons} />;
 };
 
 export default App;
