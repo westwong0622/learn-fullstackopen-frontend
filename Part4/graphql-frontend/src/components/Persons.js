@@ -1,38 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { gql, useLazyQuery } from "@apollo/client";
-
-const FIND_PERSON = gql`
-  query findPersonByName($nameToSearch: String!) {
-    findPerson(name: $nameToSearch) {
-      id
-      name
-      phone
-      address {
-        street
-        city
-      }
-    }
-  }
-`;
-
-const CREATE_PERSON = gql`
-  mutation createPerson(
-    $name: String!
-    $street: String!
-    $city: String!
-    $phone: String
-  ) {
-    addPerson(name: $name, street: $street, city: $city, phone: $phone) {
-      name
-      phone
-      id
-      address {
-        street
-        city
-      }
-    }
-  }
-`;
+import { useLazyQuery } from "@apollo/client";
+import { FIND_PERSON } from "../service/queries.js";
 
 const Persons = ({ persons }) => {
   const [person, setPerson] = useState(null);
