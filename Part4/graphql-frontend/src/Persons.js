@@ -15,6 +15,25 @@ const FIND_PERSON = gql`
   }
 `;
 
+const CREATE_PERSON = gql`
+  mutation createPerson(
+    $name: String!
+    $street: String!
+    $city: String!
+    $phone: String
+  ) {
+    addPerson(name: $name, street: $street, city: $city, phone: $phone) {
+      name
+      phone
+      id
+      address {
+        street
+        city
+      }
+    }
+  }
+`;
+
 const Persons = ({ persons }) => {
   const [person, setPerson] = useState(null);
   const [getPerson, result] = useLazyQuery(FIND_PERSON);
