@@ -4,7 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+  gql,
+} from "@apollo/client";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -33,7 +39,9 @@ client.query({ query }).then((response) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
