@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { EDIT_NUMBER } from "../service/queries.js";
+import { ALL_PERSONS, EDIT_NUMBER } from "../service/queries.js";
 
 const PhoneForm = ({ setError }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
-  const [changeNumber, result] = useMutation(EDIT_NUMBER);
+  // const [changeNumber, result] = useMutation(EDIT_NUMBER);
+
+  const [changeNumber] = useMutation(EDIT_NUMBER, {
+    refetchQueries: [{ query: ALL_PERSONS }],
+    onError: (error) => {
+      setError(error.graphQLErrors[0].message);
+    },
+  });
 
   const submit = (event) => {
     event.preventDefault();
@@ -17,11 +24,11 @@ const PhoneForm = ({ setError }) => {
     setPhone("");
   };
 
-  useEffect(() => {
-    if (result.data && result.data.editNumber === null) {
-      setError("person not found");
-    }
-  }, [result.data]); // eslint-disable-line
+  // useEffect(() => {
+  //   if (result.data && result.data.editNumber === null) {
+  //     setError("person not found");
+  //   }
+  // }, [result.data]); // eslint-disable-line
 
   return (
     <div>
