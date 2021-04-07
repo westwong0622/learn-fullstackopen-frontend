@@ -12,7 +12,6 @@ const PersonForm = ({ setError }) => {
     refetchQueries: [{ query: ALL_PERSONS }],
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
-      console.log("hello");
     },
     update: (store, response) => {
       const dataInStore = store.readQuery({ query: ALL_PERSONS });
