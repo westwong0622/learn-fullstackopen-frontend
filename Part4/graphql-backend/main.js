@@ -1,8 +1,10 @@
 const { ApolloServer, gql, UserInputError } = require("apollo-server");
 const { v1: uuid } = require("uuid");
+const jwt = require("jsonwebtoken");
 
 const mongoose = require("mongoose");
 const Person = require("./models/person");
+const User = require("./models/user");
 
 const JWT_SECRET = "NEED_HERE_A_SECRET_KEY";
 
