@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import Persons from "./components/Persons.js";
-import PersonForm from "./components/PersonForm.js";
-import PhoneForm from "./components/PhoneForm.js";
-import Notify from "./components/Notify.js";
-import { gql, useQuery } from "@apollo/client";
+import Persons from "./components/Persons";
+import PersonForm from "./components/PersonForm";
+import PhoneForm from "./components/PhoneForm";
+import Notify from "./components/Notify";
+import LoginForm from "./components/LoginForm";
+import { useQuery, useApolloClient } from "@apollo/client";
 
-const ALL_PERSONS = gql`
-  query {
-    allPersons {
-      id
-      name
-      phone
-    }
-  }
-`;
+import { ALL_PERSONS } from "./service/queries.js";
 
 const App = () => {
+  const result = useQuery(ALL_PERSONS);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [token, setToken] = useState(null);
+  const client = useApolloClient();
+
   const notify = (message) => {
     setErrorMessage(message);
     setTimeout(() => {
@@ -24,12 +21,24 @@ const App = () => {
     }, 10000);
   };
 
-  const result = useQuery(ALL_PERSONS, {
-    pollInterval: 2000,
-  });
-
   if (result.loading) {
     return <div>loading...</div>;
+  }
+
+  const logout = () => {
+    setToken(null);
+    localStorage.clear();
+    client.resetStore();
+  };
+
+  if (!token) {
+    return (
+      <div>
+        <Notify errorMessage={errorMessage} />
+        <h2>Login</h2>
+        <LoginForm setToken={setToken} setError={notify} />
+      </div>
+    );
   }
 
   return (
