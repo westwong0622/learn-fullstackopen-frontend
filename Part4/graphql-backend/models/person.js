@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    minlength: 5,
+    minlength: 8,
   },
   street: {
     type: String,
@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
   city: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
   },
 });
 
