@@ -8,11 +8,21 @@ const getEntries = (): Array<DiaryEntry> => {
   return diaries;
 };
 
+const getNonSensitiveEntries = () : DiaryEntry[] => {
+  return diaries.map(({ id, date, weather, visibility }) => ({
+    id,
+    date,
+    weather,
+    visibility,
+  }));
+};
+
 const addEntry = () => {
   return null;
 };
 
 export default {
   getEntries,
-  addEntry
+  addEntry,
+  getNonSensitiveEntries
 };
