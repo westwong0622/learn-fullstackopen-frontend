@@ -17,13 +17,13 @@ const parseArguments = (args: Array<string>): MultiplyValues => {
   }
 }
 
-const multiplicator = (a: number, b: number, printText: string) => {
+const multiplicator2 = (a: number, b: number, printText: string) => {
   console.log(printText,  a * b);
 }
 
 try {
   const { value1, value2 } = parseArguments(process.argv);
-  multiplicator(value1, value2, `Multiplied ${value1} and ${value2}, the result is:`);
+  multiplicator2(value1, value2, `Multiplied ${value1} and ${value2}, the result is:`);
 } catch (e) {
   console.log('Error, something bad happened, message: ', e.message);
 }
