@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import Header from './comp/Header';
+
 const App: React.FC = () => {
   const courseName = "Half Stack application development";
   const courseParts = [
@@ -20,7 +22,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>{courseName}</h1>
+      <Header name={courseName}/>
       <p>
         {courseParts[0].name} {courseParts[0].exerciseCount}
       </p>
