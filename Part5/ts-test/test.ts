@@ -5,8 +5,9 @@ const multiplicator = (a: number, b: number, printText: string) => {
 multiplicator(2, 4, 'Multiplied numbers 2 and 4, the result is:');
 
 type Operation = 'multiply' | 'add' | 'divide';
+type Result = string | number;
 
-const calculator = (a: number, b: number, op : Operation): number | string => {
+const calculator = (a: number, b: number, op : Operation): Result => {
   if (op === 'multiply') {
     return a * b;
   } else if (op === 'add') {
