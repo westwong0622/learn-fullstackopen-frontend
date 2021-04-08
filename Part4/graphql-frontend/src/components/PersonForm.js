@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ALL_PERSONS, CREATE_PERSON } from "../service/queries.js";
+import { useApolloClient } from "@apollo/client";
 
 const PersonForm = ({ setError }) => {
   const [name, setName] = useState("");
@@ -8,20 +9,28 @@ const PersonForm = ({ setError }) => {
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
 
+  const client = useApolloClient();
+
+  const updateCacheWith = (addedPerson) => {
+    const includedIn = (set, object) =>
+      set.map((p) => p.id).includes(object.id);
+
+    const dataInStore = client.readQuery({ query: ALL_PERSONS });
+    if (!includedIn(dataInStore.allPersons, addedPerson)) {
+      client.writeQuery({
+        query: ALL_PERSONS,
+        data: { allPersons: dataInStore.allPersons.concat(addedPerson) },
+      });
+    }
+  };
+
   const [createPerson] = useMutation(CREATE_PERSON, {
     refetchQueries: [{ query: ALL_PERSONS }],
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
     },
     update: (store, response) => {
-      const dataInStore = store.readQuery({ query: ALL_PERSONS });
-      store.writeQuery({
-        query: ALL_PERSONS,
-        data: {
-          ...dataInStore,
-          allPersons: [...dataInStore.allPersons, response.data.addPerson],
-        },
-      });
+      updateCacheWith(response.data.addPerson);
     },
   });
 
