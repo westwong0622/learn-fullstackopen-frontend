@@ -1,5 +1,7 @@
 import React from "react";
 
+import Part from "./Part";
+
 import CoursePart from "../data/types";
 
 interface ContentProps {
@@ -10,7 +12,7 @@ const Content = (props: ContentProps) => {
   const listItems = props.courseParts.map((part) => {
     return (
       <li>
-        {part.name} {part.exerciseCount}
+        <Part {...part} />
       </li>
     );
   });
