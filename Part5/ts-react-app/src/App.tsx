@@ -1,7 +1,8 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import Header from './comp/Header';
+import Header from "./comp/Header";
+import Content from "./comp/Content";
 
 const App: React.FC = () => {
   const courseName = "Half Stack application development";
@@ -11,7 +12,7 @@ const App: React.FC = () => {
     exerciseCount: number;
     type: string;
   }
-  
+
   interface CourseNormalPart extends CoursePartBase {
     type: "normal";
     description: string;
@@ -20,46 +21,47 @@ const App: React.FC = () => {
     type: "groupProject";
     groupProjectCount: number;
   }
-  
+
   interface CourseSubmissionPart extends CoursePartBase {
     type: "submission";
     description: string;
     exerciseSubmissionLink: string;
   }
-  
+
   type CoursePart = CourseNormalPart | CourseProjectPart | CourseSubmissionPart;
-  
-  const courseParts = [
+
+  const courseParts: CoursePart[] = [
     {
       name: "Fundamentals",
       exerciseCount: 10,
-      description: "This is an awesome course part"
+      description: "This is the leisured course part",
+      type: "normal",
+    },
+    {
+      name: "Advanced",
+      exerciseCount: 7,
+      description: "This is the harded course part",
+      type: "normal",
     },
     {
       name: "Using props to pass data",
       exerciseCount: 7,
-      groupProjectCount: 3
+      groupProjectCount: 3,
+      type: "groupProject",
     },
     {
       name: "Deeper type usage",
       exerciseCount: 14,
       description: "Confusing description",
-      exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev"
-    }
+      exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev",
+      type: "submission",
+    },
   ];
 
   return (
     <div>
-      <Header name={courseName}/>
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
+      <Header name={courseName} />
+      <Content courseParts={courseParts} />
       <p>
         Number of exercises{" "}
         {courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}
