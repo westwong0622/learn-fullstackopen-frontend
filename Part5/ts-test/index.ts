@@ -1,5 +1,5 @@
 import express from "express";
-import calculator from "./calculator"
+import calculator from "./calculator";
 const app = express();
 
 app.get("/ping", (_req, res) => {
@@ -11,7 +11,7 @@ app.get("/hello", (_req, res) => {
 });
 
 app.post("/calculate", (req, res) => {
-  const { value1, value2, op } = req.body
+  const { value1, value2, op } = req.body;
 
   const result = calculator(value1, value2, op);
   res.send(result);
