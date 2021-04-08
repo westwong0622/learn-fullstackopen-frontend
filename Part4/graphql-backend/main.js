@@ -13,6 +13,9 @@ require("dotenv").config();
 const { MONGODB_URI, TEST_MONGODB_URI } = process.env;
 console.log("connecting to", MONGODB_URI);
 
+const { PubSub } = require("apollo-server");
+const pubsub = new PubSub();
+
 mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
